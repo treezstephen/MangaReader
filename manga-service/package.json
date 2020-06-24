@@ -27,6 +27,8 @@
     "dependencies": {
         "@babel/runtime": "^7.10.3",
         "@hapi/hapi": "^19.1.1",
+        "dotenv": "^8.2.0",
+        "mongoose": "^5.9.20",
         "typescript": "^3.9.5"
     }
 }

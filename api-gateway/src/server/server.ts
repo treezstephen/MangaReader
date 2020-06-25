@@ -1,12 +1,12 @@
 import * as Hapi        from '@hapi/hapi';
 import { ApolloServer } from 'apollo-server-hapi';
 
-// import resolvers from '../graphql';
+import resolvers from '../graphql/resolvers/resolvers';
 import typeDefs from '../graphql/typeDefs';
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers: {},
+    resolvers,
 })
 
 const app: Hapi.Server = new Hapi.Server({

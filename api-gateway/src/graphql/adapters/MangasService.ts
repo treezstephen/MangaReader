@@ -1,5 +1,10 @@
 export default class ListingsService {
     static async fetchAllMangas() {
-        return 'fetchAllMangas test';
+        return [
+            {
+                id: '1',
+                title: 'One Piece'
+            }
+        ];
     }   
 }

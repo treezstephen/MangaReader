@@ -1,6 +1,8 @@
 import * as Hapi        from '@hapi/hapi';
 import { ApolloServer } from 'apollo-server-hapi';
 
+import HapiSwagger from './swagger';
+
 import resolvers from '../graphql/resolvers/resolvers';
 import typeDefs from '../graphql/typeDefs';
 
@@ -19,6 +21,11 @@ app.route({
     path: '/',
     handler: async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
         return 'ApiGateway says Hello World'
+    },
+    options: {
+        tags: ['api'],
+        description: 'ApiGateway says hello',
+        notes: 'Example Endpoint'
     }
 });
 
@@ -29,6 +36,8 @@ const init = async () => {
         });
         
         await server.installSubscriptionHandlers(app.listener);
+        
+        await app.register(HapiSwagger);
         
         await app.start();
     }

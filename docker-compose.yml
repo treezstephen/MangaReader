@@ -1,0 +1,24 @@
+version: "3"
+services:
+    api-gateway:
+        build: "./api-gateway"
+        depends_on:
+            - manga-service
+        ports:
+            - 4999:4999
+        volumes:
+            - ./api-gateway:/opt/app
+            
+    manga-service:
+        build: "./manga-service"
+        depends_on:
+            - manga-service-db
+        ports:
+            - 3999:3999
+        volumes:
+            - ./manga-service:/opt/app
+            
+    manga-service-db:
+        image: mongo:4.2.8
+        ports: 
+            - 27017:27017

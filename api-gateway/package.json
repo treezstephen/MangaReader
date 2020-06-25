@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
-        "dev": "babel-watch -L src/index.ts --extensions '.ts,.tsx'"
+        "watch": "babel-watch -L src/index.ts --extensions '.ts,.tsx'"
     },
     "devDependencies": {
         "@babel/cli": "^7.10.3",

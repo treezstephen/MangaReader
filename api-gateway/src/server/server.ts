@@ -1,11 +1,20 @@
-import * as Hapi from '@hapi/hapi';
+import * as Hapi        from '@hapi/hapi';
+import { ApolloServer } from 'apollo-server-hapi';
 
-const server: Hapi.Server = new Hapi.Server({
+// import resolvers from '../graphql';
+import typeDefs from '../graphql/typeDefs';
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers: {},
+})
+
+const app: Hapi.Server = new Hapi.Server({
     host: process.env.SERVICE_HOST,
     port: process.env.SERVICE_PORT,
 })
 
-server.route({
+app.route({
     method: 'GET',
     path: '/',
     handler: async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
@@ -15,13 +24,19 @@ server.route({
 
 const init = async () => {
     try {
-        await server.start();
+        await server.applyMiddleware({
+            app,
+        });
+        
+        await server.installSubscriptionHandlers(app.listener);
+        
+        await app.start();
     }
     catch (err) {
         console.log(err);
         process.exit(1);
     }
-    console.log( `Server running hot 🔥 on ${ server.info.uri }` );
+    console.log( `Server running hot 🔥 on ${ app.info.uri }` );
 }
 
 init();

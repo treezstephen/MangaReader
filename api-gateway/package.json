@@ -27,6 +27,7 @@
     "dependencies": {
         "@babel/runtime": "^7.10.3",
         "@hapi/hapi": "^19.1.1",
+        "apollo-server-hapi": "^2.15.0",
         "dotenv": "^8.2.0",
         "typescript": "^3.9.5"
     }

@@ -1,11 +1,11 @@
 import * as Hapi from '@hapi/hapi';
 
-const server: Hapi.Server = new Hapi.Server({
+const app: Hapi.Server = new Hapi.Server({
     host: process.env.SERVICE_HOST,
     port: process.env.SERVICE_PORT,
 })
 
-server.route({
+app.route({
     method: 'GET',
     path: '/',
     handler: async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
@@ -15,13 +15,13 @@ server.route({
 
 const init = async () => {
     try {
-        await server.start();
+        await app.start();
     }
     catch (err) {
         console.log(err);
         process.exit(1);
     }
-    console.log( `Server running hot 🔥 on ${ server.info.uri }` );
+    console.log( `Server running hot 🔥 on ${ app.info.uri }` );
 }
 
 init();

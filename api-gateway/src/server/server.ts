@@ -9,7 +9,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-        return 'MangaService says Hello World'
+        return 'ApiGateway says Hello World'
     }
 });
 

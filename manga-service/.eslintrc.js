@@ -1,8 +1,8 @@
 module.exports = {
     'env': {
         'browser': true,
-        'es6': true,
-        'node': true
+        'es6':     true,
+        'node':    true,
     },
     'extends': [
         'eslint:recommended',
@@ -10,16 +10,24 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
     ],
     'globals': {
-        'Atomics': 'readonly',
-        'SharedArrayBuffer': 'readonly'
+        'Atomics':           'readonly',
+        'SharedArrayBuffer': 'readonly',
     },
-    'parser': '@typescript-eslint/parser',
+    'overrides': [
+        {
+            files: ['*.ts', '*.tsx'],
+            rules: {
+                '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
+            },
+        },
+    ],
+    'parser':        '@typescript-eslint/parser',
     'parserOptions': {
         'ecmaFeatures': {
-            'jsx': true
+            'jsx': true,
         },
         'ecmaVersion': 2018,
-        'sourceType': 'module'
+        'sourceType':  'module',
     },
     'plugins': [
         'react',
@@ -32,44 +40,36 @@ module.exports = {
     ],
     'rules': {
         'arca/import-align': 2,
-        'comma-dangle': ['error', {
-            'arrays': 'always-multiline',
-            'objects': 'always-multiline',
-            'imports': 'always-multiline',
-            'exports': 'always-multiline',
+        'comma-dangle':      ['error', {
+            'arrays':    'always-multiline',
+            'exports':   'always-multiline',
             'functions': 'never',
+            'imports':   'always-multiline',
+            'objects':   'always-multiline',
         }],
         'import/order': ['error'],
-        'sort-keys-fix/sort-keys-fix': ['error', 'asc', {'caseSensitive': false, 'natural': true}],
-        'indent': [
+        'indent':       [
             'error',
-            4
+            4,
+        ],
+        'key-spacing': [
+            'warn',
+            {
+                align: 'value',
+            },
         ],
         'linebreak-style': [
             'error',
-            'unix'
+            'unix',
         ],
         'quotes': [
             'error',
-            'single'
+            'single',
         ],
         'semi': [
             'error',
-            'always'
+            'always',
         ],
-        'key-spacing' : [
-            'warn',
-            {
-                align: 'value'
-            }
-        ],
+        'sort-keys-fix/sort-keys-fix': ['error', 'asc', {'caseSensitive': false, 'natural': true}],
     },
-    'overrides': [
-        {
-        files: ['*.ts', '*.tsx'],
-        rules: {
-            '@typescript-eslint/no-unused-vars': [2, { args: 'none' }]
-        }
-        }
-    ]
 };

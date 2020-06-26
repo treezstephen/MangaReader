@@ -1,7 +1,7 @@
-import MangasService from '../../adapters/MangasService';
+import MangaService from '../../../adapters/MangaService';
 
 const mangasResolver = async () => {
-    return await MangasService.fetchAllMangas();
+    return await MangaService.fetchAllMangas();
 };
 
 export default mangasResolver;

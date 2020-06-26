@@ -1,8 +1,8 @@
-import express from 'express';
+import express          from 'express';
 import { ApolloServer } from 'apollo-server-express';
 
-import resolvers from '../graphql/resolvers/resolvers';
-import typeDefs from '../graphql/typeDefs';
+import resolvers        from '../graphql/resolvers/resolvers';
+import typeDefs         from '../graphql/typeDefs';
 
 import { 
     errorLogger,
@@ -13,9 +13,9 @@ const port = Number(process.env.SERVICE_PORT);
 const host = process.env.SERVICE_HOST;
 
 const server = new ApolloServer({
-    typeDefs,
     resolvers,
-})
+    typeDefs,
+});
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(errorLogger);
 app.use(requestLogger);
 
 app.get('/', (req, res) => {
-    return res.send('APIGateway says Hello World')
+    return res.send('APIGateway says Hello World');
 });
 
 server.applyMiddleware({ app });

@@ -14,7 +14,7 @@ app.use(errorLogger);
 app.use(requestLogger);
 
 app.get('/', (req, res) => {
-    return res.send('MangaService says Hello World')
+    return res.send('MangaService says Hello World');
 });
 
 app.listen(port, host, () => {

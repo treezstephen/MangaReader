@@ -4,6 +4,8 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
+        "lint": "yarn run eslint . --ext .ts",
+        "lint:fix": "yarn run eslint . --ext .ts --fix",
         "watch": "babel-watch -L src/index.ts --extensions '.ts,.tsx'"
     },
     "devDependencies": {
@@ -21,7 +23,9 @@
         "eslint-plugin-autofix": "^1.0.0",
         "eslint-plugin-import": "^2.21.2",
         "eslint-plugin-prettier": "^3.1.4",
-        "eslint-plugin-sort-keys-fix": "^1.1.1"
+        "eslint-plugin-react": "^7.20.0",
+        "eslint-plugin-sort-keys-fix": "^1.1.1",
+        "tslint": "^6.1.2"
     },
     "dependencies": {
         "@babel/runtime": "^7.10.3",

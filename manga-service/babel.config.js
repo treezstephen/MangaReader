@@ -1,14 +1,14 @@
 module.exports = {
-    "plugins": [
+    'plugins': [
         [
-            "@babel/plugin-transform-runtime",
+            '@babel/plugin-transform-runtime',
             {
-                "regenerator": true
-            }
-        ]
+                'regenerator': true,
+            },
+        ],
     ],
     presets: [
         '@babel/preset-typescript',
-        '@babel/preset-env'
-    ]
-}
+        '@babel/preset-env',
+    ],
+};

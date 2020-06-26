@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export const schema = new mongoose.Schema({
-    title: String
+    title: String,
 });
 
 const Manga = mongoose.model('Manga', schema);

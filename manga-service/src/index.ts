@@ -1,4 +1,4 @@
 import 'dotenv/config';
 
-import "./server/server";
-import "./db/connection";
+import './server/server';
+import './db/connection';

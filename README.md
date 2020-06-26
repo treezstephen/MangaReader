@@ -20,8 +20,3 @@ http://localhost:3999/
 http://localhost:4999/
 http://localhost:4999/graphql
 ```
-
-5. Swagger Documentation
-
-api-gateway:   http://localhost:4999/documentation
-manga-service: http://localhost:3999/documentation

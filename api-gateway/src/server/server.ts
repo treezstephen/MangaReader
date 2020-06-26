@@ -1,51 +1,25 @@
-import * as Hapi        from '@hapi/hapi';
-import { ApolloServer } from 'apollo-server-hapi';
-
-import HapiSwagger from './swagger';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 
 import resolvers from '../graphql/resolvers/resolvers';
 import typeDefs from '../graphql/typeDefs';
+
+const port = Number(process.env.SERVICE_PORT);
+const host = process.env.SERVICE_HOST;
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
 })
 
-const app: Hapi.Server = new Hapi.Server({
-    host: process.env.SERVICE_HOST,
-    port: process.env.SERVICE_PORT,
-})
+const app = express();
 
-app.route({
-    method: 'GET',
-    path: '/',
-    handler: async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-        return 'ApiGateway says Hello World'
-    },
-    options: {
-        tags: ['api'],
-        description: 'ApiGateway says hello',
-        notes: 'Example Endpoint'
-    }
+app.get('/', (req, res) => {
+    return res.send('APIGateway says Hello World')
 });
 
-const init = async () => {
-    try {
-        await server.applyMiddleware({
-            app,
-        });
-        
-        await server.installSubscriptionHandlers(app.listener);
-        
-        await app.register(HapiSwagger);
-        
-        await app.start();
-    }
-    catch (err) {
-        console.log(err);
-        process.exit(1);
-    }
-    console.log( `Server running hot 🔥 on ${ app.info.uri }` );
-}
+server.applyMiddleware({ app });
 
-init();
+app.listen(port, host, () => {
+    console.log( `Server running hot 🔥 on port ${ port }` );
+});

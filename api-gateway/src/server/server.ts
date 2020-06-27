@@ -8,7 +8,7 @@ import typeDefs         from '../graphql/typeDefs';
 import { 
     errorLogger,
     requestLogger,
-} from './logger';
+} from '../logger';
 
 const port = Number(process.env.SERVICE_PORT);
 const host = process.env.SERVICE_HOST;

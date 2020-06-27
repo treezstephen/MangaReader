@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
+        "dev": "babel-node src/index.ts --extensions '.ts,.tsx'",
         "lint:fix": "yarn run eslint . --ext .ts --fix",
         "lint": "yarn run eslint . --ext .ts",
         "watch": "babel-watch -L src/index.ts --extensions '.ts,.tsx'"
@@ -29,6 +30,7 @@
         "tslint": "^6.1.2"
     },
     "dependencies": {
+        "@babel/node": "^7.10.3",
         "@babel/runtime": "^7.10.3",
         "apollo-server-express": "^2.15.0",
         "body-parser": "^1.19.0",

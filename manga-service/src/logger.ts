@@ -1,6 +1,24 @@
 import winston        from 'winston';
 import expressWinston from 'express-winston';
 
+const logger = winston.createLogger({
+    format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.timestamp(),
+        winston.format.align(),
+        winston.format.printf(
+            info => `${info.timestamp} ${info.level}: ${info.message}`
+        )
+    ),
+    transports: [
+        new winston.transports.Console(),
+        // new winston.transports.File({ filename: 'combined.log' }),
+    ],
+});
+
+
+
+
 export const requestLogger = expressWinston.logger({
     
     // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
@@ -13,7 +31,11 @@ export const requestLogger = expressWinston.logger({
     
     format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.json()
+        winston.format.timestamp(),
+        winston.format.align(),
+        winston.format.printf(
+            info => `${info.timestamp} ${info.level}: ${info.message}`
+        )
     ), 
     
     
@@ -36,7 +58,11 @@ export const requestLogger = expressWinston.logger({
 export const errorLogger = expressWinston.errorLogger({
     format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.json()
+        winston.format.timestamp(),
+        winston.format.align(),
+        winston.format.printf(
+            info => `${info.timestamp} ${info.level}: ${info.message}`
+        )
     ),
     meta:       false,
     // optional: control whether you want to log the meta data about the request (default to true)
@@ -45,3 +71,5 @@ export const errorLogger = expressWinston.errorLogger({
         new winston.transports.Console(),
     ], // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
 });
+
+export default logger;

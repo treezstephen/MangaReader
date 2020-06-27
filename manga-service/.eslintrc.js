@@ -72,4 +72,9 @@ module.exports = {
         ],
         'sort-keys-fix/sort-keys-fix': ['error', 'asc', {'caseSensitive': false, 'natural': true}],
     },
+    'settings': {
+        'react': {
+            'version': 'latest',
+        },
+    },
 };

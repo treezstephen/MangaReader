@@ -1,9 +1,9 @@
 import Mangadex, {
     SearchQuery,
 } from 'mangadex-api';
-import { SearchResult } from 'mangadex-api/typings/mangadex';
+import { SearchResult, Title, MangaDescription } from 'mangadex-api/typings/mangadex';
 
-import logger           from '../logger';
+import logger                  from '../logger';
 
 const PATH_TO_SESSION = './src/session/MANGA_DEX_SESSION.txt';
 
@@ -57,6 +57,24 @@ export const initSession = async () => {
     return client;
 };
 
+//Fetch
+export const fetchMangaInfo = async (manga : Manga) => {
+    const client = await getSession();
+    
+    try {
+        const title : Title = await client.getManga(
+            manga.id,
+            true
+        );
+        
+        return mapToMangoInfo(manga, title);
+    }
+    catch (e) {
+        logger.error('Error finding MangaInfo on MangaDex', e);
+        throw new Error(e);
+    }
+};
+
 //Search
 const BASE_SEARCH_QUERY = {
     artist:           undefined,
@@ -99,3 +117,31 @@ export const searchMangas = async (options) => {
         throw new Error(e);
     }
 }; 
+
+export interface MangaDescriptionWithAltNames extends MangaDescription {
+    alt_names: string[]
+}
+
+const mapToMangoInfo = (manga : Manga, title : Title) : MangaInfo => {
+    const chapters = title.chapter.filter(c => c.lang_code === process.env.MANGA_DEX_LANG_CODE);
+    const mdManga = title.manga as MangaDescriptionWithAltNames;
+    
+    return {
+        _id:          manga._id,
+        alt_names:    mdManga.alt_names,
+        artist:       mdManga.artist,
+        author:       mdManga.author,
+        chapters:     chapters,
+        cover_url:    mdManga.cover_url,
+        description:  mdManga.description,
+        genres:       mdManga.genres as Genre[],
+        hentai:       mdManga.hentai,
+        id:           manga.id,
+        lang_flag:    mdManga.lang_flag,
+        lang_name:    mdManga.lang_name,
+        last_chapter: mdManga.last_chapter,
+        links:        mdManga.links as Link[],
+        status_text:  mdManga.status_text,
+        title:        mdManga.title,
+    };
+};

@@ -41,8 +41,14 @@ class Manga {
 
 const MangaModel = getModelForClass(Manga);
 
+export const findManga = async (mangaId : string) => {
+    const manga : Manga = await MangaModel.findById(mangaId);
+    
+    return manga;
+};
+
 export const search = async (searchString : string) => {
-    const mangas = await MangaModel.find({
+    const mangas : Manga[] = await MangaModel.find({
         title: { '$options': 'i', '$regex': searchString },
     });
     
@@ -59,7 +65,7 @@ export const upsertMangas = async (mangas : Manga[]) => {
     }));
     
     try {
-        return await MangaModel.bulkWrite(bulkMangas) as Manga[];
+        await MangaModel.bulkWrite(bulkMangas);
     }
     catch(e) {
         logger.error('Error creating multiple mangas');

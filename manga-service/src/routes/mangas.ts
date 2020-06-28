@@ -3,18 +3,39 @@ import {
     Request, 
     Response, 
 } from 'express';
-import { OK }             from  'http-status-codes';
-import * as MangaProvider from '../adapters/MangaDex';
+import { OK } from  'http-status-codes';
 
-import Manga, {
+
+import {
+    findManga,
     search,
 } from '../models/Manga';
 import logger                  from '../logger';
 import { createErrorResponse } from '../errors';
+import * as MangaProvider      from '../adapters/MangaDex';
 
 const route = Router();
 
-route.get('/search', async (request : Request, response : Response) => {
+route.get('/:mangaId', async (request : Request, response : Response) => {
+    const {
+        params: {
+            mangaId,
+        },
+    } = request;
+    
+    try {
+        const manga: Manga = await findManga(mangaId);    
+        
+        const mangaInfo : MangaInfo = await MangaProvider.fetchMangaInfo(manga);
+        response.status(OK).send(mangaInfo);
+    }
+    catch (e) {
+        logger.error('Error finding Manga on MangaService', e);
+        createErrorResponse(e, response);
+    }
+});
+
+route.post('/search', async (request : Request, response : Response) => {
     const {
         query: {
             title,
@@ -31,14 +52,6 @@ route.get('/search', async (request : Request, response : Response) => {
         logger.error('Error searching MangaService', e);
         createErrorResponse(e, response);
     }
-});
-
-route.get('/session', async (req, res) => {
-    const client = await MangaProvider.getSession();
-
-    const me = await client.getMe();
-    
-    return res.status(OK).send(me);
 });
 
 export default route;

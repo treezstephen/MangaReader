@@ -1,8 +1,10 @@
-import Manga from './Query/mangas';
+import Manga     from './Query/mangas';
+import MangaInfo from './Query/mangaInfo';
 
 const resolvers = {
     Query: {
-        mangas: Manga,
+        mangaInfo: MangaInfo,
+        mangas:    Manga,
     },
 };
 

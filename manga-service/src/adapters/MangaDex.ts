@@ -3,7 +3,7 @@ import Mangadex, {
 } from 'mangadex-api';
 import { SearchResult, Title, MangaDescription } from 'mangadex-api/typings/mangadex';
 
-import logger                  from '../logger';
+import logger                                    from '../logger';
 
 const PATH_TO_SESSION = './src/session/MANGA_DEX_SESSION.txt';
 

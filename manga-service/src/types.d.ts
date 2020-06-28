@@ -24,15 +24,15 @@ interface MangaChapter {
 }
 
 interface Manga {
-    _id         : string
-    id          : number
-    description : string
-    follows     : number
-    image_url   : string
-    lang_name   : string
-    rating      : Rating
-    title       : string
-    views       : number
+    _id          : string
+    id           : number
+    description? : string
+    follows?     : number
+    image_url?   : string
+    lang_name?   : string
+    rating?      : Rating
+    title        : string
+    views        : number
 }
 
 interface MangaInfo {

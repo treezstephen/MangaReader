@@ -24,7 +24,7 @@ route.get('/:mangaId', async (request : Request, response : Response) => {
     } = request;
     
     try {
-        const manga: Manga = await findManga(mangaId);    
+        const manga : Manga = await findManga(mangaId) as Manga;    
         
         const mangaInfo : MangaInfo = await MangaProvider.fetchMangaInfo(manga);
         response.status(OK).send(mangaInfo);

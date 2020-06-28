@@ -7,11 +7,6 @@ import {
 import logger from '../logger';
 
 //Definition
-interface Rating {
-    value?: number,
-    votes?: number,
-}
-
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
 class Manga {
     @prop({ index: true, required: true })

@@ -20,3 +20,15 @@ http://localhost:3999/
 http://localhost:4999/
 http://localhost:4999/graphql
 ```
+
+## Setup MangaDex connection
+1. Create .env for both api-gateway and manga-service off .env.example
+
+2. Create MangaDex account and fill in Username and Password in MangaService's .env
+
+3. Run docker-compose up
+
+4. Go to verify connection is made
+```
+http://localhost:3999/mangas/session
+```

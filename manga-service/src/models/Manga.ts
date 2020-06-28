@@ -41,6 +41,14 @@ class Manga {
 
 const MangaModel = getModelForClass(Manga);
 
+export const search = async (searchString : string) => {
+    const mangas = await MangaModel.find({
+        title: { '$options': 'i', '$regex': searchString },
+    });
+    
+    return mangas;
+};
+
 export const upsertMangas = async (mangas : Manga[]) => {
     const bulkMangas = mangas.map(manga => ({
         updateOne: {

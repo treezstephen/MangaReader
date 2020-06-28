@@ -1,7 +1,10 @@
 import MangaService from '../../../adapters/MangaService';
 
-const mangasResolver = async () => {
-    return await MangaService.fetchAllMangas();
+const mangasResolver = async (obj, args) => {
+    const {
+        searchString,
+    } = args;
+    return await MangaService.search({ searchString });
 };
 
 export default mangasResolver;

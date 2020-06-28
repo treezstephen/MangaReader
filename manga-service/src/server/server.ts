@@ -1,8 +1,8 @@
 import bodyParser      from 'body-parser';
 import express         from 'express';
 
-import { initSession } from '../helpers/MangaDexConnection';
-import setupRoutes     from '../routes/routes';
+import { initSession } from '../adapters/MangaDex';
+import routes          from '../routes/routes';
 
 import { 
     errorLogger,
@@ -14,15 +14,15 @@ const host = process.env.SERVICE_HOST;
 
 const app = express();
 
+//body-parser
+app.use(bodyParser.json());
+
 //winston
 app.use(errorLogger);
 app.use(requestLogger);
 
 //routes
-setupRoutes(app);
-
-//body-parser
-app.use(bodyParser.json());
+app.use('/', routes);
 
 app.listen(port, host, () => {
     console.log( `Server running hot 🔥 on port ${ port }` );

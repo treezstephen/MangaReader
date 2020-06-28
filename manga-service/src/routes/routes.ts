@@ -1,19 +1,13 @@
-import { getSession } from '../helpers/MangaDexConnection';
+import { Router }     from 'express';
 
-const setupRoutes = (app) => {
-    
-    app.get('/', (req, res) => {
-        return res.send('MangaService says Hello World');
-    });
-    
-    app.get('/session', async (req, res) => {
-        const client = await getSession();
+import appRoutes      from './app';
+import mangasRoutes   from './mangas';
+import seedRoutes     from './seed';
 
-        const me = await client.getMe();
-        
-        return res.send(me);
-    });
-};
+const routes = Router();
 
+routes.use('/',       appRoutes);
+routes.use('/mangas', mangasRoutes);
+routes.use('seed',    seedRoutes);
 
-export default setupRoutes;
+export default routes;

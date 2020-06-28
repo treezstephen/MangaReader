@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "allowSyntheticDefaultImports": true, 
-        "module": "commonjs",
         "esModuleInterop": true, 
+        "experimentalDecorators": true,
+        "module": "commonjs",
         "noEmit": true,
     },
     "include": [

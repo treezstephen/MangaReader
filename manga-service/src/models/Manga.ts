@@ -45,7 +45,7 @@ export const findManga = async (mangaId : string) => {
 export const search = async (searchString : string) => {
     const mangas : Manga[] = await MangaModel.find({
         title: { '$options': 'i', '$regex': searchString },
-    });
+    }).limit(10);
     
     return mangas;
 };

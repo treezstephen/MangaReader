@@ -1,9 +1,14 @@
 import Mangadex, {
     SearchQuery,
 } from 'mangadex-api';
-import { SearchResult, Title, MangaDescription } from 'mangadex-api/typings/mangadex';
+import { 
+    Chapter as mdChapter,
+    MangaDescription, 
+    SearchResult, 
+    Title, 
+} from 'mangadex-api/typings/mangadex';
 
-import logger                                    from '../logger';
+import logger from '../logger';
 
 const PATH_TO_SESSION = './src/session/MANGA_DEX_SESSION.txt';
 
@@ -67,7 +72,24 @@ export const fetchMangaInfo = async (manga : Manga) => {
             true
         );
         
-        return mapToMangoInfo(manga, title);
+        return mapToMangaInfo(manga, title);
+    }
+    catch (e) {
+        logger.error('Error finding MangaInfo on MangaDex', e);
+        throw new Error(e);
+    }
+};
+
+export const fetchChapter = async (chapterId : string) => {
+    const client = await getSession();
+    
+    try {
+        const chapter : mdChapter = await client.getChapter(
+            chapterId,
+            true
+        );
+        
+        return mapToChapter(chapter);
     }
     catch (e) {
         logger.error('Error finding MangaInfo on MangaDex', e);
@@ -122,7 +144,7 @@ export interface MangaDescriptionWithAltNames extends MangaDescription {
     alt_names: string[]
 }
 
-const mapToMangoInfo = (manga : Manga, title : Title) : MangaInfo => {
+const mapToMangaInfo = (manga : Manga, title : Title) : MangaInfo => {
     const chapters = title.chapter.filter(c => c.lang_code === process.env.MANGA_DEX_LANG_CODE);
     const mdManga = title.manga as MangaDescriptionWithAltNames;
     
@@ -144,4 +166,8 @@ const mapToMangoInfo = (manga : Manga, title : Title) : MangaInfo => {
         status_text:  mdManga.status_text,
         title:        mdManga.title,
     };
+};
+
+const mapToChapter = (chapter : mdChapter) : Chapter => {
+    return chapter;
 };

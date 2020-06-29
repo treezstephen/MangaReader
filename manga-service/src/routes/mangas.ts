@@ -35,6 +35,31 @@ route.get('/:mangaId', async (request : Request, response : Response) => {
     }
 });
 
+route.get('/:mangaId/chapters/:chapterId', async (request : Request, response : Response) => {
+    const {
+        params: {
+            mangaId,
+            chapterId,
+        },
+    } = request;
+    
+    try {
+        const manga : Manga = await findManga(mangaId) as Manga;    
+        
+        const chapter : Chapter = await MangaProvider.fetchChapter(chapterId);
+        
+        if (manga.id !== chapter.manga_id) {
+            throw new Error(`Chapter ${chapter.id} does not belong to Manga ${manga.id}`);
+        }
+        
+        response.status(OK).send(chapter);
+    }
+    catch (e) {
+        logger.error('Error finding Manga on MangaService', e);
+        createErrorResponse(e, response);
+    }
+});
+
 route.post('/search', async (request : Request, response : Response) => {
     const {
         query: {
@@ -45,7 +70,7 @@ route.post('/search', async (request : Request, response : Response) => {
     const searchString = title as string;
     
     try {
-        const mangas: Manga[] = await search(searchString);    
+        const mangas: Manga[] = await search(searchString) as Manga[];    
         response.status(OK).send(mangas);
     }
     catch (e) {

@@ -4,12 +4,17 @@ const MANGA_SERVICE_URI = process.env.MANGA_SERVICE_URI;
 
 export default class MangaService {
     static async getManga({ mangaId }) {
-        const body = await axios.get(`${MANGA_SERVICE_URI}/mangas/${mangaId}`);
-        return body.data;
-    }   
+        const { data } = await axios.get(`${MANGA_SERVICE_URI}/mangas/${mangaId}`);
+        return data;
+    }
+    
+    static async getChapter({ chapterId, mangaId }) {
+        const { data } = await axios.get(`${MANGA_SERVICE_URI}/mangas/${mangaId}/chapters/${chapterId}`);
+        return data;
+    }
     
     static async search({ searchString }) {
-        const body = await axios.post(`${MANGA_SERVICE_URI}/mangas/search?title=${searchString}`);
-        return body.data;
+        const { data } = await axios.post(`${MANGA_SERVICE_URI}/mangas/search?title=${searchString}`);
+        return data;
     }   
 }

@@ -57,7 +57,7 @@ interface MangaInfo {
 interface Chapter {
     id         : number
     chapter    : string
-    comments   : string
+    comments   : number
     hash       : string
     lang_code  : string
     lang_name  : string

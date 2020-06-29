@@ -59,7 +59,7 @@ const typeDefs = gql`
     type Chapter {
         id: Int
         chapter: String
-        comments: String
+        comments: Int
         hash: String
         lang_code: String
         lang_name: String
@@ -73,6 +73,7 @@ const typeDefs = gql`
     }
     
     type Query {
+        chapter(mangaId: String!, chapterId: String!): Chapter!
         mangas(searchString: String!): [Manga!]!
         mangaInfo(mangaId: String!): MangaInfo!
     }
